@@ -91,8 +91,14 @@ public class XxlJobRemotingUtil {
                 connection.setRequestProperty(XXL_JOB_ACCESS_TOKEN, accessToken);
             }
 
+            try {
+                connection.connect();
+            }catch (Exception e){
+                logger.info("xxlJob 连接错误，可能是admin控制器未开启，请检查:"+e.getMessage());
+                return null;
+            }
             // do connection
-            connection.connect();
+
 
             // write requestBody
             if (requestObj != null) {
